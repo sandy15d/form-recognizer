@@ -1,0 +1,15 @@
+{
+  "name": "scandoctechno",
+  "version": "1.0.0",
+  "description": "scan doctechno test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sandeep dewangan",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/ai-form-recognizer": "^4.0.0",
+    "@azure/identity": "^3.1.4"
+  }
+}
