@@ -1,15 +1,16 @@
 {
-  "name": "scandoctechno",
+  "name": "scanocr",
   "version": "1.0.0",
-  "description": "scan doctechno test",
-  "main": "index.js",
+  "description": "scan ocr automate invoice processing",
+  "main": "yes",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "sandeep dewangan",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "@azure/ai-form-recognizer": "^4.0.0",
-    "@azure/identity": "^3.1.4"
+    "@azure/identity": "^3.1.4",
+    "express": "^4.18.2"
   }
 }
