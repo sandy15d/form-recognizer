@@ -1,6 +1,10 @@
 const express = require('express')
+const bodyParser = require('body-parser');
 const app = express()
 const port = 3000
+
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 const { AzureKeyCredential, DocumentAnalysisClient } = require("@azure/ai-form-recognizer");
 const key = "f0dafd6904664d6499ac63b6802534e1";
 const endpoint = "https://sandy15d.cognitiveservices.azure.com/";
@@ -8,7 +12,18 @@ const endpoint = "https://sandy15d.cognitiveservices.azure.com/";
 // sample document
 const invoiceUrl = "https://scanold.doctechno.in/uploads/temp/1682592903.pdf";
 
-app.get('/', async (req, res) => {
+app.post('/', async (req, res) => {
+    try {
+        const {doc_type,url} = req.body;
+        const data = await myfunction(doc_type,url);
+        res.send(data);
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+
+const myfunction = async (doc_type,url) => {
     const client = new DocumentAnalysisClient(endpoint, new AzureKeyCredential(key));
     const poller = await client.beginAnalyzeDocument("prebuilt-invoice", invoiceUrl);
     const {documents: [result] } = await poller.pollUntilDone();
@@ -45,11 +60,12 @@ app.get('/', async (req, res) => {
         finalResult["Tax"] = invoice.TotalTax?.content;
         finalResult["Amount Due:"] = invoice.AmountDue?.content;
 
-        res.send(finalResult);
+        return finalResult;
     } else {
         throw new Error("Expected at least one receipt in the result.");
     }
-})
+}
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
